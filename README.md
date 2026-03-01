@@ -62,7 +62,7 @@ AI2002-Assignment2/
 │
 ├── pathfinding_agent.py      # Main application (Pygame GUI)
 ├── README.md                 # This file
-└── Report_AI2002_A2.pdf      # Comprehensive project report
+└── Report_AI2002_A2.docs      # Comprehensive project report
 ```
 
 ---
@@ -113,5 +113,6 @@ pip install pygame
 Roll No: 22F-3618 
 AI2002 — Artificial Intelligence (Spring 2026)  
 National University of Computer & Emerging Sciences, Chiniot-Faisalabad Campus
+
 
 
