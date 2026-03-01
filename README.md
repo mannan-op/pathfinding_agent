@@ -1,6 +1,7 @@
 # Dynamic Pathfinding Agent — AI2002 Assignment 2
 
 A real-time pathfinding visualizer implementing **Greedy Best-First Search (GBFS)** and **A\* Search** with dynamic obstacle support on a grid-based environment.
+<img width="1369" height="855" alt="image" src="https://github.com/user-attachments/assets/ddf7888c-f777-462e-8231-761faeff60f8" />
 
 ---
 
@@ -108,8 +109,9 @@ pip install pygame
 
 ## Author
 
-**[Your Name]**  
+**Abdul Mannan**  
 Roll No: 22F-3618 
 AI2002 — Artificial Intelligence (Spring 2026)  
 National University of Computer & Emerging Sciences, Chiniot-Faisalabad Campus
+
 
