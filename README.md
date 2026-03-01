@@ -25,7 +25,7 @@ A real-time pathfinding visualizer implementing **Greedy Best-First Search (GBFS
 
 ```bash
 # Clone the repository
-git clone https://github.com/YOUR_USERNAME/AI2002-Assignment2.git
+git clone https://github.com/F223618/AI2002-Assignment2.git
 cd AI2002-Assignment2
 
 # Install dependencies
@@ -109,6 +109,7 @@ pip install pygame
 ## Author
 
 **[Your Name]**  
-Roll No: [Your Roll Number]  
+Roll No: 22F-3618 
 AI2002 — Artificial Intelligence (Spring 2026)  
 National University of Computer & Emerging Sciences, Chiniot-Faisalabad Campus
+
