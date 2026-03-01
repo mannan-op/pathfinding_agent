@@ -4,11 +4,11 @@ import heapq
 ROWS = 25
 COLS = 35
 
-# Heuristic (Manhattan Distance)
+# ─── Heuristic ──────────────────────────────────────────
 def manhattan(a, b):
     return abs(a[0] - b[0]) + abs(a[1] - b[1])
 
-# Get valid neighbors (4-directional)
+# ─── Get Neighbors ──────────────────────────────────────
 def get_neighbors(pos, walls):
     r, c = pos
     directions = [(-1,0),(1,0),(0,-1),(0,1)]
@@ -21,7 +21,7 @@ def get_neighbors(pos, walls):
 
     return neighbors
 
-# Reconstruct path
+# ─── Reconstruct Path ───────────────────────────────────
 def reconstruct_path(came_from, current):
     path = []
     while current is not None:
@@ -29,7 +29,32 @@ def reconstruct_path(came_from, current):
         current = came_from[current]
     return path[::-1]
 
-# A* Algorithm
+# ─── Greedy Best-First Search (GBFS) ───────────────────
+def gbfs(start, goal, walls):
+    open_heap = []
+    heapq.heappush(open_heap, (manhattan(start, goal), start))
+
+    visited = {start}
+    came_from = {start: None}
+    nodes_expanded = 0
+
+    while open_heap:
+        _, current = heapq.heappop(open_heap)
+        nodes_expanded += 1
+
+        if current == goal:
+            path = reconstruct_path(came_from, goal)
+            return path, nodes_expanded
+
+        for neighbor, _ in get_neighbors(current, walls):
+            if neighbor not in visited:
+                visited.add(neighbor)
+                heapq.heappush(open_heap, (manhattan(neighbor, goal), neighbor))
+                came_from[neighbor] = current
+
+    return None, nodes_expanded
+
+# ─── A* Search ──────────────────────────────────────────
 def astar(start, goal, walls):
     open_heap = []
     heapq.heappush(open_heap, (manhattan(start, goal), start))
@@ -37,6 +62,7 @@ def astar(start, goal, walls):
     came_from = {start: None}
     g_cost = {start: 0}
     closed = set()
+    nodes_expanded = 0
 
     while open_heap:
         _, current = heapq.heappop(open_heap)
@@ -45,10 +71,11 @@ def astar(start, goal, walls):
             continue
 
         closed.add(current)
+        nodes_expanded += 1
 
         if current == goal:
             path = reconstruct_path(came_from, goal)
-            return path, len(closed)
+            return path, nodes_expanded
 
         for neighbor, cost in get_neighbors(current, walls):
             if neighbor in closed:
@@ -62,9 +89,9 @@ def astar(start, goal, walls):
                 heapq.heappush(open_heap, (f_cost, neighbor))
                 came_from[neighbor] = current
 
-    return None, len(closed)
+    return None, nodes_expanded
 
-# Example Usage
+# ─── Example Usage ──────────────────────────────────────
 if __name__ == "__main__":
     start = (2, 2)
     goal = (20, 30)
@@ -76,13 +103,22 @@ if __name__ == "__main__":
         (10,15),(11,15),(12,15),(13,15)
     }
 
-    path, nodes_expanded = astar(start, goal, walls)
+    print("Running Greedy Best-First Search (GBFS)...")
+    path_gbfs, nodes_gbfs = gbfs(start, goal, walls)
 
-    if path:
-        print("Path found!")
-        print("Path:", path)
-        print("Path cost:", len(path) - 1)
-        print("Nodes expanded:", nodes_expanded)
+    if path_gbfs:
+        print("GBFS Path Found!")
+        print("Path cost:", len(path_gbfs) - 1)
     else:
-        print("No path found.")
-        print("Nodes expanded:", nodes_expanded)
+        print("GBFS No Path Found.")
+    print("Nodes expanded:", nodes_gbfs)
+
+    print("\nRunning A* Search...")
+    path_astar, nodes_astar = astar(start, goal, walls)
+
+    if path_astar:
+        print("A* Path Found!")
+        print("Path cost:", len(path_astar) - 1)
+    else:
+        print("A* No Path Found.")
+    print("Nodes expanded:", nodes_astar)
